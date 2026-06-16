@@ -142,21 +142,8 @@ end
 -- =======================================================================================
 -- CALLBACKS
 -- =======================================================================================
--- Ping de diagnóstico: se este retornar nil no client, o progression.lua não carregou.
-lib.callback.register('rodz-piloto:server:ping', function(source)
-    return true
-end)
-
 lib.callback.register('rodz-piloto:server:getProfile', function(source)
-    local ok, result = pcall(PilotoBuildPayload, source)
-    if not ok then
-        print(("^1[RODZ-PILOTO][DEBUG]^7 ERRO em getProfile/PilotoBuildPayload: %s"):format(tostring(result)))
-        return { __error = tostring(result) }
-    end
-    if result == nil then
-        print("^1[RODZ-PILOTO][DEBUG]^7 getProfile: PilotoBuildPayload retornou nil (GetPlayer nil?) src=" .. tostring(source))
-    end
-    return result
+    return PilotoBuildPayload(source)
 end)
 
 -- =======================================================================================

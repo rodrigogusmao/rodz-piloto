@@ -180,7 +180,7 @@ Config.SpecialMissionLocations = {
 --  MINIGAMES (decolagem / pouso)
 --  Desative com Config.EnableMinigames = false
 -- ============================================================
-Config.EnableMinigames = true
+Config.EnableMinigames = false      
 
 Config.TakeoffMinigame = {
     keys     = {'W', 'A', 'D'},
@@ -190,7 +190,7 @@ Config.TakeoffMinigame = {
 
 Config.LandingMinigame = {
     duration       = 4000,
-    successMessage = true
+    successMessage = false
 }
 
 -- ============================================================

@@ -16,26 +16,11 @@ end
 
 -- Abre o tablet
 function OpenPilotTablet()
-    print("^3[RODZ-PILOTO][DEBUG]^7 OpenPilotTablet chamado, buscando perfil...")
     local profile = BuildProfile()
-    if profile and profile.__error then
-        print("^1[RODZ-PILOTO][DEBUG]^7 ERRO no server getProfile -> " .. tostring(profile.__error))
-        lib.notify({ title = 'Aeroporto', description = 'Erro no servidor (veja F8)', type = 'error' })
-        return
-    end
     if not profile then
-        print("^1[RODZ-PILOTO][DEBUG]^7 getProfile retornou NIL (callback do server falhou ou nao registrado)")
-        -- Auto-diagnóstico: testa um callback trivial para saber se o progression.lua carregou
-        local pong = lib.callback.await('rodz-piloto:server:ping', false)
-        if pong == true then
-            print("^3[RODZ-PILOTO][DEBUG]^7 PING OK -> progression.lua CARREGADO. O erro esta no getProfile (veja o console do SERVIDOR a linha 'ERRO em getProfile').")
-        else
-            print("^1[RODZ-PILOTO][DEBUG]^7 PING FALHOU -> progression.lua NAO carregou (erro de boot). Veja o console do SERVIDOR no momento do restart.")
-        end
         lib.notify({ title = 'Aeroporto', description = 'Erro ao carregar seu perfil.', type = 'error' })
         return
     end
-    print(("^2[RODZ-PILOTO][DEBUG]^7 perfil OK (nivel=%s, xp=%s). Abrindo NUI..."):format(tostring(profile.level), tostring(profile.xp)))
     tabletOpen = true
     SetNuiFocus(true, true)
     SendNUIMessage({ action = 'open', profile = profile })
